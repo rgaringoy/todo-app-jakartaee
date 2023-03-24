@@ -1,6 +1,20 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    String userName = null;
+//allow access only if session exists
+    if(session.getAttribute("user") == null){
+        response.sendRedirect("login");
+    }else userName = (String) session.getAttribute("user");
+    String sessionID = null;
+    Cookie[] cookies = request.getCookies();
+    if(cookies !=null){
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("user")) userName = cookie.getValue();
+        }
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +43,9 @@
             <a class="navbar-brand" href="#">Todo List</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="<%=request.getContextPath()%>/logout">Logout</a></li>
+            <li><form action="<%=request.getContextPath()%>/logout" method="post">
+                <input type="submit" value="Logout" >
+            </form></li>
         </ul>
     </div>
 </nav>
