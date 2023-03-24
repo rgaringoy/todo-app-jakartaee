@@ -41,8 +41,7 @@ public class LoginController extends HttpServlet {
                 session.setMaxInactiveInterval(30*60);
                 Cookie cookie = new Cookie("user", login.getUsername());
                 resp.addCookie(cookie);
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("list");
-                requestDispatcher.forward(req, resp);
+                resp.sendRedirect("list");
             }
             else {
 
