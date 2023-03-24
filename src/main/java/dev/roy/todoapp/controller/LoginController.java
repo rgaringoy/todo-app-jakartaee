@@ -36,11 +36,11 @@ public class LoginController extends HttpServlet {
         Login login = new Login(username, password);
 
             if (loginDao.validate(login)) {
-//                HttpSession session = req.getSession();
-//                session.setAttribute("user",username);
-//                session.setMaxInactiveInterval(30*60);
-//                Cookie cookie = new Cookie("user", username);
-//                resp.addCookie(cookie);
+                HttpSession session = req.getSession();
+                session.setAttribute("user",login.getUsername());
+                session.setMaxInactiveInterval(30*60);
+                Cookie cookie = new Cookie("user", login.getUsername());
+                resp.addCookie(cookie);
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("list");
                 requestDispatcher.forward(req, resp);
             }
